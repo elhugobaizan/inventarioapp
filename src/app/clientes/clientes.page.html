@@ -1,0 +1,29 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button default-href="inicio"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Clientes</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="listClientes()">
+        <ion-icon name="refresh-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="servicio.irA('cliente/0')">
+        <ion-icon name="add-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-item-sliding *ngFor="let item of clientes" #ionItemSliding>
+        <ion-item (click)="servicio.irA('/cliente/' + item.id)">{{item.nombre}}</ion-item>
+        <ion-item-options slot="end">
+          <ion-item-option (click)="removeCliente(item, ionItemSliding)">
+            <ion-icon name="trash-outline" aria-label="Remove"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+        </ion-item-sliding>
+  </ion-list>
+</ion-content>

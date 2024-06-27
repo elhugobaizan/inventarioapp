@@ -1,0 +1,42 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button default-href="clientes"></ion-back-button>
+    </ion-buttons>
+    <ion-title>cliente</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-item>
+      <ion-label position="stacked">identificacion</ion-label>
+      <ion-input [(ngModel)]="identificacion"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">nombre</ion-label>
+      <ion-input [(ngModel)]="nombre"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">correo</ion-label>
+      <ion-input [(ngModel)]="correo"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">telefono</ion-label>
+      <ion-input [(ngModel)]="telefono"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">direccion</ion-label>
+      <ion-input [(ngModel)]="direccion"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">pais</ion-label>
+      <ion-input [(ngModel)]="pais"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">ciudad</ion-label>
+      <ion-input [(ngModel)]="ciudad"></ion-input>
+    </ion-item>
+  </ion-list>
+  <ion-button (click)="saveCliente()">Guardar</ion-button>
+</ion-content>
