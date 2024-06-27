@@ -16,14 +16,15 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-searchbar color="secondary" debounce="500" (ionInput)="listClientes()" placeholder="Buscar..." [(ngModel)]="texto"></ion-searchbar>
   <ion-list>
     <ion-item-sliding *ngFor="let item of clientes" #ionItemSliding>
-        <ion-item (click)="servicio.irA('/cliente/' + item.id)">{{item.nombre}}</ion-item>
-        <ion-item-options slot="end">
-          <ion-item-option (click)="removeCliente(item, ionItemSliding)">
-            <ion-icon name="trash-outline" aria-label="Remove"></ion-icon>
-          </ion-item-option>
-        </ion-item-options>
-        </ion-item-sliding>
+      <ion-item (click)="editCliente(item, ionItemSliding)">{{item.nombre}}</ion-item>
+      <ion-item-options slot="end">
+        <ion-item-option (click)="removeCliente(item, ionItemSliding)">
+          <ion-icon name="trash-outline" aria-label="Remove"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
 </ion-content>

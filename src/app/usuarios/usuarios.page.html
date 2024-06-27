@@ -1,13 +1,29 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>usuarios</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button default-href="inicio"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Usuarios</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="listUsuarios()">
+        <ion-icon name="refresh-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="servicio.irA('usuario/0')">
+        <ion-icon name="add-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">usuarios</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-list>
+    <ion-item-sliding *ngFor="let item of usuarios" #ionItemSliding>
+      <ion-item (click)="editUsuario(item, ionItemSliding)">{{item.nombre}}</ion-item>
+      <ion-item-options slot="end">
+        <ion-item-option (click)="removeUsuario(item, ionItemSliding)">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
 </ion-content>

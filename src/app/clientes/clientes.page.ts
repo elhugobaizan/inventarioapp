@@ -27,12 +27,12 @@ export class ClientesPage implements OnInit {
     this.listClientes();
   }
 
-
+//////////////////////////////////
 
   async listClientes() {
     let l = await this.loading.create();
     l.present();
-    this.servicio.listClientes().subscribe(
+    this.servicio.listClientes(this.texto).subscribe(
       (data:any) => {
         this.clientes = data.info.items;
         this.total = data.total;
@@ -41,8 +41,6 @@ export class ClientesPage implements OnInit {
         console.log(error);
         l.dismiss();
       });
-      let lista: Array<number> = [];
-      return lista;
   }
 
   async removeCliente(item: any, ionItemSliding: IonItemSliding) {
@@ -74,6 +72,11 @@ export class ClientesPage implements OnInit {
       ]
     });
     a.present();
+  }
+
+  editCliente(item: any, ionItemSliding: IonItemSliding) {
+    ionItemSliding.close();
+    this.servicio.irA("cliente/" + item.id);
   }
 
 }

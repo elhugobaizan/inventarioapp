@@ -125,5 +125,41 @@ export class ServiciosComunesService {
   deleteCliente(_id: number) {
     return this.http.get(this.URL_API + 'clientes/del/' + _id);
   }
- 
+
+   /* CRUD de usuarios */
+
+  listUsuarios(buscar: string = '') {
+    return this.http.post(this.URL_API + 'usuarios', this.objectToFormdata({texto: buscar}));
+  } 
+
+  deleteUsuario(_id: number) {
+    return this.http.get(this.URL_API + 'usuarios/del/' + _id);
+  }
+
+  readUsuario(_id: number) {
+    return this.http.get(this.URL_API + 'usuarios/' + _id);
+  }  
+
+  createUsuario(item: any) {
+    return this.http.post(this.URL_API + 'usuarios/add', this.objectToFormdata({
+      id: item.id,
+      usuario: item.usuario,
+      nombre: item.nombre,
+      clave: item.clave,
+      correo: item.correo,
+      telefono: item.telefono,
+      activo: item.activo
+    }));
+  }
+
+  updateUsuario(item: any) {
+    return this.http.post(this.URL_API + 'usuarios/upd/' + item.id, this.objectToFormdata({
+      usuario: item.usuario,
+      nombre: item.nombre,
+      clave: item.clave,
+      correo: item.correo,
+      telefono: item.telefono,
+      activo: item.activo
+    }));
+  }
 }

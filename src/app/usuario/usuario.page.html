@@ -1,13 +1,33 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>usuario</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button default-href="usuarios"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{id == 0 ? 'Nuevo' : 'Editar'}} usuario {{id == 0 ? '' : id}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">usuario</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-list>
+    <ion-item>
+      <ion-input [(ngModel)]="usuario" label="usuario" labelPlacement="stacked"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="clave" type="password" label="clave" labelPlacement="stacked"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="nombre" label="nombre" labelPlacement="stacked"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="telefono" type="number" label="telefono" labelPlacement="stacked"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="correo" label="correo" labelPlacement="stacked"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">activo</ion-label>
+      <ion-toggle [(ngModel)]="activo" slot="end"></ion-toggle>
+    </ion-item>
+  </ion-list>
+  <ion-button (click)="saveUsuario()">Guardar</ion-button>
 </ion-content>

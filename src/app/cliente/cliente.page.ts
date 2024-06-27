@@ -50,17 +50,20 @@ export class ClientePage implements OnInit {
   }
   
   saveCliente() {
+
+    let saveItem = {
+      id: this.id,
+      identificacion: this.identificacion,
+      nombre: this.nombre,
+      ciudad: this.ciudad,
+      correo: this.correo,
+      telefono: this.telefono,
+      direccion: this.direccion,
+      pais: this.pais,
+    };
+
     if(this.id == 0) {
-      this.servicio.createCliente({
-        id: this.id,
-        identificacion: this.identificacion,
-        nombre: this.nombre,
-        ciudad: this.ciudad,
-        correo: this.correo,
-        telefono: this.telefono,
-        direccion: this.direccion,
-        pais: this.pais,
-      }).subscribe((data: any) => {
+      this.servicio.createCliente(saveItem).subscribe((data: any) => {
         this.servicio.mostrarMensaje(data.mensaje, data.info.id > 0 ? 'success' : 'danger');
         if(data.info.id > 0) {
           this.servicio.irA('clientes');
@@ -69,20 +72,11 @@ export class ClientePage implements OnInit {
         this.servicio.mostrarMensaje('Algo fallo' + error, 'danger');
       });
     } else {
-      this.servicio.updateCliente({
-        id: this.id,
-        identificacion: this.identificacion,
-        nombre: this.nombre,
-        ciudad: this.ciudad,
-        correo: this.correo,
-        telefono: this.telefono,
-        direccion: this.direccion,
-        pais: this.pais,
-      }).subscribe((data: any) => {
+      this.servicio.updateCliente(saveItem).subscribe((data: any) => {
         if(data.info.id > 0) {
           this.servicio.irA('clientes');
         } else {
-          this.servicio.mostrarMensaje(data.mensaje, data.info.id > 0 ? 'success' : 'danger');
+          this.servicio.mostrarMensaje(data.mensaje, 'danger');
         }
       }, (error) => {
         this.servicio.mostrarMensaje('Algo fallo' + error, 'danger');
