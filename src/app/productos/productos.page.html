@@ -19,7 +19,10 @@
   <ion-searchbar color="secondary" debounce="500" (ionInput)="listProductos()" placeholder="Buscar..." [(ngModel)]="texto"></ion-searchbar>
   <ion-list>
     <ion-item-sliding *ngFor="let item of productos" #ionItemSliding>
-      <ion-item (click)="editProducto(item, ionItemSliding)">{{item.nombre}}</ion-item>
+      <ion-item (click)="editProducto(item, ionItemSliding)">
+        {{item.nombre}}
+        <ion-badge slot="end">{{item.codigo}}</ion-badge>
+      </ion-item>
       <ion-item-options side="end">
         <ion-item-option (click)="removeProducto(item, ionItemSliding)">
           <ion-icon name="trash-outline" aria-label="Remove"></ion-icon>

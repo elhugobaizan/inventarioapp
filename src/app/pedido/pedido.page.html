@@ -1,13 +1,75 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>pedido</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button default-href="pedidos"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{id == 0 ? 'Nuevo' : 'Editar'}} pedido {{id == 0 ? '' : id}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">pedido</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-list>
+    <ion-item>
+      <ion-select label="cliente" labelPlacement="stacked" placeholder="Seleccionar" [(ngModel)]="clienteId" [disabled]="id != 0" okText="Seleccionar" cancelText="Cancelar">
+        <ion-select-option [value]="cliente.id" *ngFor="let cliente of clientes">{{cliente.nombre}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-select label="usuario" labelPlacement="stacked" placeholder="Seleccionar" [(ngModel)]="usuarioId" [disabled]="id != 0">
+        <ion-select-option [value]="usuario.id" *ngFor="let usuario of usuarios">{{usuario.nombre}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">fecha</ion-label>
+      <ion-datetime-button datetime="datetime" pla></ion-datetime-button>
+      <ion-popover [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime [(ngModel)]="fecha" presentation="date" id="datetime" [preferWheel]="true" [formatOptions]="{
+            date: {
+              month: '2-digit',
+              day: '2-digit',
+              year: 'numeric'
+            },
+          }"></ion-datetime>
+        </ng-template>
+      </ion-popover>
+    </ion-item>
+    <ion-item *ngIf="id != 0">
+      <ion-select label="estado" labelPlacement="stacked" placeholder="Seleccionar" [(ngModel)]="estado">
+        <ion-select-option *ngFor="let estado of estados" [value]="estado.id">{{estado.texto}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="id != 0">
+      <ion-select label="productos" labelPlacement="stacked" placeholder="Seleccionar" [(ngModel)]="_producto" (ionChange)="productoSeleccionado()">
+        <ion-select-option *ngFor="let producto of productos" [value]="producto">{{producto.nombre}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  
+    <ion-list-header color="tertiary">
+      Detalle Productos
+    </ion-list-header>
+    <ion-item-sliding *ngFor="let _prod of productos_listado" #ionItemSliding>
+      <ion-item>
+        <ion-label text-wrap>
+          <h3>{{_prod.producto}}</h3>
+          <p>Precio: {{_prod.precio|number}}</p>
+        </ion-label>
+        <ion-input slot="end" [(ngModel)]="_prod.cantidad" type="number" (ionChange)="updateProducto(_prod)"></ion-input>
+      </ion-item>
+      <ion-item-options slot="end">
+        <ion-item-option (click)="removeProducto(_prod, ionItemSliding)">
+          <ion-icon name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+
+    <ion-list-header color="success">
+      <ion-item color="success">
+        <ion-label text-wrap>
+          <h3>Total: {{calcularTotal()|number}}</h3>
+        </ion-label>
+      </ion-item>
+    </ion-list-header>
+  </ion-list>
+  <ion-button (click)="savePedido()">Guardar</ion-button>
 </ion-content>

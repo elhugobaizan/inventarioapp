@@ -44,8 +44,6 @@ export class ProductosPage implements OnInit {
     return lista;
   }
 
-  getProducto(item: any) {}
-
   async removeProducto(item: any, ionItemSliding: IonItemSliding) {
     ionItemSliding.close();
     let a = await this.alert.create({

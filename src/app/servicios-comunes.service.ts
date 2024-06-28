@@ -52,6 +52,11 @@ export class ServiciosComunesService {
     t.present();
   }
 
+  getTotales(buscar: string = '') {
+    return this.http.post(this.URL_API + 'totales', {});
+  }
+
+
   /* CRUD de Productos */
 
   listProductos(buscar: string = '') {
@@ -161,5 +166,57 @@ export class ServiciosComunesService {
       telefono: item.telefono,
       activo: item.activo
     }));
+  }
+
+  /* CRUD de pedidos */
+
+  listPedidos(buscar: string = '') {
+    return this.http.post(this.URL_API + 'pedidos', this.objectToFormdata({texto: buscar}));
+  } 
+
+  deletePedido(_id: number) {
+    return this.http.get(this.URL_API + 'pedidos/del/' + _id);
+  }
+
+  readPedido(_id: number) {
+    return this.http.get(this.URL_API + 'pedidos/' + _id);
+  }  
+
+  createPedido(item: any) {
+    return this.http.post(this.URL_API + 'pedidos/add', this.objectToFormdata({
+      id: item.id,
+      usuario_id: item.usuarioId,
+      cliente_id: item.clienteId,
+      fecha: item.fecha,
+      estado: item.estado,
+    }));
+  }
+
+  updatePedido(item: any) {
+    return this.http.post(this.URL_API + 'pedidos/upd/' + item.id, this.objectToFormdata({
+      id: item.id,
+      usuario_id: item.usuarioId,
+      cliente_id: item.clienteId,
+      fecha: item.fecha,
+      estado: item.estado,
+    }));
+  }
+
+  listPedidoProductos(_id: number) {
+    return this.http.get(this.URL_API + 'pedidos/' + _id + '/productos');
+  }
+
+  createPedidoProducto(item: any) {
+    return this.http.post(this.URL_API + 'pedidos/' + item.pedidoId + '/productos/add/' + item.productoId, this.objectToFormdata({
+      id: item.id,
+      pedido_id: item.pedidoId,
+      producto_id: item.productoId,
+      cantidad: item.cantidad,
+      precio: item.precio,
+    }));
+  }
+
+  deletePedidoProducto(item: any) {
+    return this.http.get(this.URL_API + 'pedidos/' + item.pedidoId + '/productos/del/' + item.productoId);  
   }
 }
